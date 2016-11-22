@@ -22,13 +22,11 @@ void deleteTree(Node * curr){
 }
 
 void AVLTree::Insert (int32_t val){
-  Node* newRoot = Insert(root, val);
-  root = newRoot;
-
+  Insert(root, val);
 }
 
 void AVLTree::Insert(Node * &node, int32_t val){
-  if(node == NULL){
+  if(node == NULL){ //take care of case if a new root is created. 
     Node * newNode = new Node(val);
     node = newNode;
     return;
