@@ -32,8 +32,16 @@ private:
   };
 
   uint32_t getHeight(Node * node);
-  uint32_t heightBalance(Node * node);
   bool isBalanced(Node * node);
   void changeHeight(Node * node);
+  void Insert(Node * &node, int32_t val);
+  void Balance(Node * &currNode);
+  void leftLeftShift(Node * &currNode);
+  void rightRightShift(Node * &currNode);
+  void leftRightShift(Node * &currNode);
+  void rightLeftShift(Node * &currNode);
+  void findValue(Node * currNode, int32_t val);
+  void Delete(Node * &currNode, int32_t val);
+  Node * findMin(Node * currNode);
 };
 #endif /* end of include guard: AVL_H_ */
