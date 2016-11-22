@@ -58,6 +58,7 @@ void AVLTree::Delete(Node * &currNode, int32_t val){
     if(currNode->left == NULL && currNode->right == NULL){
       delete currNode;
       currNode = NULL;
+      return;
     }
     
     else if(currNode->left == NULL && currNode->right != NULL){
@@ -77,11 +78,8 @@ void AVLTree::Delete(Node * &currNode, int32_t val){
     else{//have 2 children
      Node * rightMinNode = findMin(currNode->right);
      currNode->data = rightMinNode->data;
-     delete rightMinNode;
-     rightMinNode = NULL;
+     Delete(currNode->right, rightMinNode->data);
     }
-    
-    return;
 
   }
 
@@ -92,7 +90,7 @@ void AVLTree::Delete(Node * &currNode, int32_t val){
   else{
     Delete(currNode->left, val);
   }
-
+  Balance(currNode);
 }
 
 Node * findMin(Node * currNode){
