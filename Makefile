@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-I. -isystem /cs/class/cs130a/googletest/googletest/include -std=c++0x
+CFLAGS=-I. -isystem /cs/class/cs130a/googletest/googletest/include -std=c++0x -g
 LDFLAGS=-pthread /cs/class/cs130a/googletest/libgtest.a
 
 all:	avl_test

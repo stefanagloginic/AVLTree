@@ -1,6 +1,4 @@
-#include <iostream>
-#include <cmath>
-
+#include "avl.h" 
 
 AVLTree::AVLTree (){
   root = NULL;
@@ -11,14 +9,14 @@ AVLTree::~AVLTree (){
   root = NULL;
 }
 
-void deleteTree(Node * curr){
+void AVLTree::deleteTree(Node * curr){
   if(curr == NULL){
-    delete curr;
+    return;
   }
   
   deleteTree(curr->left);
   deleteTree(curr->right);
-
+  delete curr;
 }
 
 void AVLTree::Insert (int32_t val){
@@ -26,7 +24,7 @@ void AVLTree::Insert (int32_t val){
 }
 
 void AVLTree::Insert(Node * &node, int32_t val){
-  if(node == NULL){ //take care of case if a new root is created. 
+  if(node == NULL){  
     Node * newNode = new Node(val);
     node = newNode;
     return;
@@ -54,7 +52,7 @@ void AVLTree::Delete(Node * &currNode, int32_t val){
     return;
   }
   
-  else if(currNode == val){
+  else if(currNode->data == val){
     if(currNode->left == NULL && currNode->right == NULL){
       delete currNode;
       currNode = NULL;
@@ -93,7 +91,7 @@ void AVLTree::Delete(Node * &currNode, int32_t val){
   Balance(currNode);
 }
 
-Node * findMin(Node * currNode){
+Node * AVLTree::findMin(Node * currNode){
   if(currNode->left == NULL){
     return currNode;
   }
@@ -127,11 +125,42 @@ Node * AVLTree::findValue(Node * currNode, int32_t val){
 }
 
 std::string AVLTree::PrintPreOrder () const{
-  
+  std::string s = preOrderTraversal(root, "");
+  if(s != ""){
+    s = s.substr(0,s.length()-1); 
+  }
+  return s;
 }
 
+std::string AVLTree::preOrderTraversal(Node * currNode, std::string tree) const{//will always have extra space at end
+  if(currNode == NULL){
+    return tree;
+  }
+  tree += std::to_string(currNode->data);
+  tree += " ";
+  tree = preOrderTraversal(currNode->left, tree);
+  return preOrderTraversal(currNode->right, tree);  
+  }
+
 std::string AVLTree::PrintInOrder () const{
-  
+  std::string s = inOrderTraversal(root, "");
+  if(s != ""){
+    s = s.substr(0,s.length()-1);
+  }
+  return s;
+}
+
+std::string AVLTree::inOrderTraversal(Node * currNode, std::string tree) const{//returns string with extra space at end
+  if(currNode == NULL){
+    return tree;
+  }
+
+  tree = inOrderTraversal(currNode->left, tree);
+
+  tree += std::to_string(currNode->data);
+  tree += " ";
+
+  return inOrderTraversal(currNode->right, tree);
 }
 
 uint32_t AVLTree::getHeight(Node * node){
@@ -142,13 +171,13 @@ uint32_t AVLTree::getHeight(Node * node){
   return node->height;
   
 }
-uint32_t AVLTree::balanceFactor(Node * node){
+int32_t AVLTree::balanceFactor(Node * node){
   return getHeight(node->right)-getHeight(node->left);
 }
 
 bool AVLTree::isBalanced(Node * node){
-  uint32_t BF = balanceFactor(node);
-  if(BF > 1){
+  int32_t BF = balanceFactor(node);
+  if(BF > 1 || BF < -1){
     return false;
   }
   return true;
