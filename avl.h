@@ -47,5 +47,5 @@ private:
   Node * findMin(Node * currNode);
   std::string preOrderTraversal(Node * currNode, std::string tree) const;
   std::string inOrderTraversal(Node * currNode, std::string tree) const;
-};
+ };
 #endif /* end of include guard: AVL_H_ */

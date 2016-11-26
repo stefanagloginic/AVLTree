@@ -1,5 +1,4 @@
 #include "avl.h" 
-
 AVLTree::AVLTree (){
   root = NULL;
 }
@@ -115,7 +114,7 @@ Node * AVLTree::findValue(Node * currNode, int32_t val){
     return currNode;
   }
   
-  else if(currNode->data < val){
+  else if(currNode->data >  val){
     return findValue(currNode->left, val);
   }
   
@@ -149,6 +148,7 @@ std::string AVLTree::PrintInOrder () const{
   }
   return s;
 }
+
 
 std::string AVLTree::inOrderTraversal(Node * currNode, std::string tree) const{//returns string with extra space at end
   if(currNode == NULL){
@@ -206,7 +206,7 @@ void AVLTree::Balance(Node * &currNode){//assumes insert & will change height & 
 
       int32_t secondaryBalanceFactor = balanceFactor(currNode->left);
 
-      if(secondaryBalanceFactor < 0){ //indicates LL shift is needed
+      if(secondaryBalanceFactor <= 0){ //indicates LL shift is needed
 	leftLeftShift(currNode);
       }
       else{//indicates LR shift is needed
